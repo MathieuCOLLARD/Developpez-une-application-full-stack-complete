@@ -1,0 +1,26 @@
+<app-header></app-header>
+<button mat-icon-button class="back-button" (click)="goBack()">
+    <mat-icon>arrow_back</mat-icon>
+</button>
+<div class="mobile-logo">
+    <img src="/assets/logo_p6.png" alt="logo" />
+</div>
+<div class="form-container" fxLayout="row" fxLayoutAlign="center center">
+    <form class="form" [formGroup]="form" (ngSubmit)="submit()">
+        <h2>Inscription</h2>
+        <div>
+            <p class="subtitle">Nom d'utilisateur</p>
+            <input class="form-input" formControlName="username">
+        </div>
+        <div>
+            <p class="subtitle">Email</p>
+            <input class="form-input" formControlName="email">
+        </div>
+        <div>
+            <p class="subtitle">Mot de passe</p>
+            <input class="form-input" formControlName="password" type="password">
+        </div>
+        <button mat-raised-button class="validate-button" color="primary" type="submit" [disabled]="form.invalid">S'inscrire</button>
+        <span *ngIf="onError" class="error ml2">An error occurred</span>
+    </form>
+</div>

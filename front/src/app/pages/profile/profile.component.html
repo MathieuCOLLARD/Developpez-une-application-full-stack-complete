@@ -1,0 +1,29 @@
+<app-header></app-header>
+
+<div class="user-profile" fxLayout="column" fxLayoutAlign="start start">
+    <form class="form" [formGroup]="form" (ngSubmit)="updateUser()">
+        <h2>Profil utilisateur</h2>
+        <input class="form-input" formControlName="username" [(ngModel)]="user.username">
+        <input class="form-input" formControlName="email" [(ngModel)]="user.email">
+        <div class="action-buttons">
+            <button button mat-raised-button class="validate-button" color="primary" type="submit" [disabled]="form.invalid">Sauvegarder</button>
+            <p class="disconnect-text" (click)="disconnect()">Se déconnecter</p>
+        </div>
+    </form>
+</div>
+<hr style="width: 90%;">
+<h2 style="text-align: center;">Abonnements</h2>
+<div class="topic-cards">
+    <div *ngFor="let topic of topics" class="login" fxLayout="row" fxLayoutAlign="center center">
+        <mat-card class="topic-card">
+            <mat-card-header>
+            <mat-card-title>{{ topic.title }}</mat-card-title>
+            <mat-card-subtitle>{{ topic.description }}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <button mat-raised-button color="primary" (click)="unsubscribeTopic(topic.id)">Se désabonner</button>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
+

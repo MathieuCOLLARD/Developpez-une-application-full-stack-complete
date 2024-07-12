@@ -1,0 +1,22 @@
+.topic-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 10px;
+    row-gap: 10px;
+    justify-content: center;
+    padding: 20px;
+    mat-card {
+        display: flex;
+    }
+    
+    mat-card-content {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+.topic-card {
+    background: #F5F5F5;
+    display: flex;
+    flex-direction: column;
+}

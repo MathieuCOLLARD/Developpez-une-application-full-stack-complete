@@ -1,0 +1,24 @@
+<app-header></app-header>
+<div class="articles-header">
+  <button mat-raised-button color="primary" (click)="createNewArticle()" class="new-article-button">Créer un article</button>
+  <p (click)="sortArticlesByDate()" class="sort-button">
+    Trier par date 
+    <mat-icon>{{ isSortedByDate ? 'arrow_downward' : 'arrow_upward' }}</mat-icon>
+  </p>
+</div>
+<div class="article-cards">
+  <div *ngFor="let article of articles">
+    <mat-card (click)="viewArticle(article.id)" class="article-card">
+      <mat-card-header>
+        <mat-card-title>{{ article.title }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="container">
+            <p class="box">{{ article.createdAt | date: 'dd/MM/yyyy' }}</p>
+            <p class="box">{{ article.author }}</p>
+        </div>
+        <p class="content">{{ article.content }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

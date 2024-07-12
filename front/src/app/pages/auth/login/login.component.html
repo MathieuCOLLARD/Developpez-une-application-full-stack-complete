@@ -1,0 +1,28 @@
+<app-header></app-header>
+<div class="mobile-logo">
+    <img src="/assets/logo_p6.png" alt="logo" />
+</div>
+<button mat-icon-button class="back-button" (click)="goBack()">
+    <mat-icon>arrow_back</mat-icon>
+</button>
+<div class="form-container" fxLayout="column" fxLayoutAlign="center center">
+    <form class="form" [formGroup]="form" (ngSubmit)="submit()">
+        <h2>Se connecter</h2>
+        <div>
+            <p class="subtitle">E-mail ou nom d'utilisateur</p>
+            <input class="form-input" formControlName="email">
+        </div>
+        <div>
+            <p class="subtitle">Mot de passe</p>
+            <div class="password-container">
+                <input class="form-input password-input" [type]="hide ? 'password' : 'text'" formControlName="password">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hide" type="button" class="toggle-password">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </div>
+        </div>
+        <button mat-raised-button class="validate-button" color="primary" type="submit" [disabled]="form.invalid">Se connecter</button>
+        <p *ngIf="onError" class="error">An error occurred</p>
+    </form>
+</div>

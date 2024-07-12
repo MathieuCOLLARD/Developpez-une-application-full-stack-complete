@@ -1,0 +1,22 @@
+<app-header></app-header>
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>New Article</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-form-field>
+            <mat-select [(ngModel)]="article.topicTitle">
+              <mat-option *ngFor="let topic of topics" [value]="topic">
+                {{ topic }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Title" [(ngModel)]="article.title">
+        </mat-form-field>
+        <mat-form-field>
+            <textarea matInput placeholder="Content" [(ngModel)]="article.content"></textarea>
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="createArticle()">Créer</button>
+    </mat-card-content>
+</mat-card>

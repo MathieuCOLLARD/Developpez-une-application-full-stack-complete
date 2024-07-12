@@ -1,0 +1,14 @@
+<app-header></app-header>
+<div class="topic-cards">
+    <div *ngFor="let topic of topics" class="login" fxLayout="row" fxLayoutAlign="center center">
+        <mat-card class="topic-card">
+            <mat-card-header>
+            <mat-card-title>{{ topic.title }}</mat-card-title>
+            <mat-card-subtitle>{{ topic.description }}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <button mat-raised-button color="primary" (click)="subscribeTopic(topic.id)">S'abonner</button>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

@@ -1,0 +1,61 @@
+.user-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.profile-input {
+    margin-bottom: 10px;
+}
+
+button[mat-raised-button] {
+    margin-top: 10px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.form-input {
+    padding: 10px;
+    padding-right: 40px;
+    border: 1px solid #7763C5;
+    border-radius: 4px;
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+}
+
+.disconnect-text {
+    color: #FF0000;
+    cursor: pointer;
+    text-align: center;
+    padding-top: 15px;
+}
+
+.topic-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 10px;
+    row-gap: 10px;
+    justify-content: center;
+    padding: 20px;
+    mat-card {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+}
+
+.topic-card {
+    background: #F5F5F5;
+    display: flex;
+    flex-direction: column;
+}

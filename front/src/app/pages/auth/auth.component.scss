@@ -1,0 +1,45 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mobile-logo {
+    display: none;
+}
+
+.back-button {
+    position: absolute;
+    left: 16px;
+    top: 100px;
+}
+
+.subtitle {
+    margin-bottom: 0px;
+    margin-top: 20px;
+    font-size: 12px;
+}
+
+.form-input {
+    padding: 10px;
+    padding-right: 40px;
+    border: 1px solid;
+    border-radius: 4px;
+}
+
+.validate-button {
+    margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+    .mobile-logo {
+        display: flex;
+        margin: 20px auto;
+        height: 200px;
+        justify-content: center;
+    }
+    .back-button {
+        display: none;
+    }
+}
+

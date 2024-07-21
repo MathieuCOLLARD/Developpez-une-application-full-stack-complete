@@ -37,12 +37,12 @@ public class TopicController {
         return new MessageResponse(topicService.createTopic(topicDTO));
     }
 
-    @PutMapping("/{id}/subscribe")
+    @PostMapping("/{id}/subscribe")
     public MessageResponse subscribeToTopic(@PathVariable Long id, Principal principal){
         return new MessageResponse(topicService.subscribeToTopic(id, principal));
     }
 
-    @PutMapping("/{id}/unsubscribe")
+    @PostMapping("/{id}/unsubscribe")
     public MessageResponse unsubscribeToTopic(@PathVariable Long id, Principal principal){
         return new MessageResponse(topicService.unsubscribeToTopic(id, principal));
     }

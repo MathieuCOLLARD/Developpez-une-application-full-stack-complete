@@ -1,8 +1,6 @@
 package com.openclassrooms.mddapi.models;
 
 import lombok.*;
-import lombok.experimental.Accessors;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;

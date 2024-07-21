@@ -1,6 +1,5 @@
 package com.openclassrooms.mddapi.services;
 
-import com.openclassrooms.mddapi.dto.ArticleDTO;
 import com.openclassrooms.mddapi.dto.TopicDTO;
 import com.openclassrooms.mddapi.models.Topic;
 import com.openclassrooms.mddapi.models.User;
@@ -48,7 +47,7 @@ public class TopicServiceImpl implements TopicService {
     public String subscribeToTopic(Long id, Principal principal) {
         Topic topic = topicRepository.findById(id).orElseThrow(() -> new RuntimeException("Topic not found"));
         Optional<User> user = userRepository.findByEmail(principal.getName());
-        user.get().getTopics().add(topic.getTitle());
+        user.get().getTopics().add(topic);
         userRepository.save(user.get());
         return "Subscribed to topic !";
     }
@@ -57,7 +56,7 @@ public class TopicServiceImpl implements TopicService {
     public String unsubscribeToTopic(Long id, Principal principal) {
         Topic topic = topicRepository.findById(id).orElseThrow(() -> new RuntimeException("Topic not found"));
         Optional<User> user = userRepository.findByEmail(principal.getName());
-        user.get().getTopics().remove(topic.getTitle());
+        user.get().getTopics().remove(topic);
         userRepository.save(user.get());
         return "Unsubscribed to topic !";
     }

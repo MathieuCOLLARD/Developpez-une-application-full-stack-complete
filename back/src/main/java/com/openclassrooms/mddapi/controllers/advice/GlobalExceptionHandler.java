@@ -44,11 +44,4 @@ public class GlobalExceptionHandler {
         body.put(MESSAGE, "Argument type mismatch");
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
-
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<Object> handleGeneralException(Exception ex, WebRequest request) {
-        Map<String, Object> body = new LinkedHashMap<>();
-        body.put(MESSAGE, "An error occurred");
-        return new ResponseEntity<>(body, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
 }

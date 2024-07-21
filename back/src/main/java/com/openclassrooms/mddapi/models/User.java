@@ -1,16 +1,15 @@
 package com.openclassrooms.mddapi.models;
 
 import lombok.*;
-import lombok.experimental.Accessors;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "USERS", uniqueConstraints = {
@@ -24,6 +23,7 @@ import java.util.ArrayList;
 @AllArgsConstructor
 @ToString
 public class User {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
@@ -54,7 +54,10 @@ public class User {
   @Column(name = "updated_at")
   private LocalDateTime updatedAt;
 
-  @Column(name = "topics")
-  private ArrayList<String> topics;
-
+  @ManyToMany()
+  @JoinTable(
+          name = "user_topics",
+          joinColumns = @JoinColumn(name = "user_id"),
+          inverseJoinColumns = @JoinColumn(name = "topic_id"))
+  private List<Topic> topics = new ArrayList<>();
 }

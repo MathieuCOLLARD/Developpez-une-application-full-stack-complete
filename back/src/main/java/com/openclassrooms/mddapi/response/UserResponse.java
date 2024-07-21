@@ -1,8 +1,10 @@
 package com.openclassrooms.mddapi.response;
 
+import com.openclassrooms.mddapi.models.Topic;
 import lombok.Data;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Data
 public class UserResponse {
@@ -12,6 +14,6 @@ public class UserResponse {
 
     private String username;
 
-    private ArrayList<String> topics;
+    private List<Topic> topics;
 
 }

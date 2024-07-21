@@ -3,18 +3,15 @@ package com.openclassrooms.mddapi.services;
 import com.openclassrooms.mddapi.dto.UserDTO;
 import com.openclassrooms.mddapi.exception.BadRequestException;
 import com.openclassrooms.mddapi.models.User;
-import com.openclassrooms.mddapi.payload.response.MessageResponse;
 import com.openclassrooms.mddapi.repository.UserRepository;
 import com.openclassrooms.mddapi.response.UserResponse;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -57,7 +54,6 @@ public class UserServiceImpl implements UserService {
                 userDTO.getUsername(),
                 passwordEncoder.encode(userDTO.getPassword()));
 
-        user.setTopics(new ArrayList<>());
         userRepository.save(user);
 
     }

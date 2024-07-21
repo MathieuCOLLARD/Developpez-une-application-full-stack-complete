@@ -1,13 +1,10 @@
 package com.openclassrooms.mddapi.models;
 
 import lombok.*;
-import lombok.experimental.Accessors;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 
 @Entity
 @Table(name = "ARTICLES")
@@ -30,7 +27,6 @@ public class Article {
     @Size(max = 100)
     private String title;
 
-    @NonNull
     @Column(name = "author")
     @Size(max = 50)
     private String author;
@@ -39,9 +35,10 @@ public class Article {
     @Column(name = "content")
     private String content;
 
-    @Column(name = "comments")
-    private ArrayList<String> comments;
-
     private Timestamp createdAt;
+
+    @ManyToOne
+    @JoinColumn(name = "topic_id")
+    private Topic topic;
 
 }

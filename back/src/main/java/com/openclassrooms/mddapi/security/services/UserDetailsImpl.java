@@ -22,8 +22,6 @@ public class UserDetailsImpl implements UserDetails {
 
   private String username;
 
-  private ArrayList<String> topics;
-
   @JsonIgnore
   private String password;  
   

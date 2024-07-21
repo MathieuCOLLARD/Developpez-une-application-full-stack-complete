@@ -1,6 +1,7 @@
 package com.openclassrooms.mddapi.controllers;
 
 import com.openclassrooms.mddapi.dto.ArticleDTO;
+import com.openclassrooms.mddapi.dto.CommentDTO;
 import com.openclassrooms.mddapi.response.ArticleResponse;
 import com.openclassrooms.mddapi.response.MessageResponse;
 import com.openclassrooms.mddapi.services.ArticleService;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
+import java.security.Principal;
 
 
 @RestController
@@ -24,8 +26,8 @@ public class ArticleController {
     }
 
     @PostMapping("")
-    public MessageResponse createArticle(@Valid @ModelAttribute ArticleDTO articleDTO){
-        return new MessageResponse(articleService.createArticle(articleDTO));
+    public MessageResponse createArticle(@Valid @RequestBody ArticleDTO articleDTO, Principal principalUser){
+        return new MessageResponse(articleService.createArticle(articleDTO, principalUser));
     }
 
     @GetMapping("/{id}")
@@ -37,9 +39,14 @@ public class ArticleController {
         return articleDTO;
     }
 
-    // Add username parameter to createComment method
     @PostMapping("/comments")
-    public MessageResponse createComment(Long articleID, String commentContent){
-        return new MessageResponse(articleService.createComment(articleID, commentContent));
+    public MessageResponse createComment(@RequestBody CommentDTO commentDTO, Principal principalUser){
+        return new MessageResponse(articleService.createComment(commentDTO, principalUser));
     }
+
+    @GetMapping("/comments/{articleId}")
+    public Object getComments(@PathVariable Long articleId){
+        return articleService.getComments(articleId);
+    }
+
 }

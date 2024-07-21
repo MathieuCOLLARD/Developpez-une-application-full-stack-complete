@@ -1,4 +1,5 @@
 <app-header></app-header>
+<span class="no-topic" *ngIf="topics.length === 0">Vous êtes abonné à tous les thèmes</span>
 <div class="topic-cards">
     <div *ngFor="let topic of topics" class="login" fxLayout="row" fxLayoutAlign="center center">
         <mat-card class="topic-card">

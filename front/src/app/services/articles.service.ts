@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Article, RootArticle } from '../interfaces/article.interface';
+import { Comment } from '../interfaces/comment.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +25,11 @@ export class ArticlesService {
     return this.httpClient.post<String>(`${this.pathService}`,article);
   }
 
-  public addComment(articleID: string, comment: string): Observable<String> {
-    return this.httpClient.post<String>(`${this.pathService}/comments`,{articleID, comment});
+  public addComment(articleID: number, content: string): Observable<String> {
+    return this.httpClient.post<String>(`${this.pathService}/comments`,{articleID, content});
+  }
+
+  public getComments(articleID: number): Observable<Comment[]> {
+    return this.httpClient.get<Comment[]>(`${this.pathService}/comments/${articleID}`);
   }
 }

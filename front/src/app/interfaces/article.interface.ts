@@ -5,12 +5,12 @@ export interface RootArticle {
   }
   
   export interface Article {
-    id: number
+    id?: number
     title: string
-    author: string
+    author?: string
     content: string
-    comments: Comment[]
-    createdAt: string
+    comments?: Comment[]
+    createdAt?: string
     topicTitle: number
   }
   

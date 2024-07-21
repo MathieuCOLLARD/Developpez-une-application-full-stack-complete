@@ -1,22 +1,18 @@
 <app-header></app-header>
-<mat-card>
-    <mat-card-header>
-        <mat-card-title>New Article</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-        <mat-form-field>
-            <mat-select [(ngModel)]="article.topicTitle">
-              <mat-option *ngFor="let topic of topics" [value]="topic">
-                {{ topic }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        <mat-form-field>
-            <input matInput placeholder="Title" [(ngModel)]="article.title">
-        </mat-form-field>
-        <mat-form-field>
-            <textarea matInput placeholder="Content" [(ngModel)]="article.content"></textarea>
-        </mat-form-field>
-        <button mat-raised-button color="primary" (click)="createArticle()">Créer</button>
-    </mat-card-content>
-</mat-card>
+<div class="article-title">
+    <button mat-icon-button class="back-button" (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+    </button>
+</div>
+<div class="new-article-fields">
+    <h2>Créer un nouvel article</h2>
+      <select class="new-article-topic" id="topic-select" [(ngModel)]="article.topicTitle">
+      <option value="0" disabled selected>Sélectionner un thème</option>
+      <option *ngFor="let topic of topics" [value]="topic">
+        {{ topic }}
+      </option>
+      </select>
+    <input class="new-article-title" placeholder="Titre de l’article" [(ngModel)]="article.title">
+    <textarea class="new-article-content" placeholder="Contenu de l’article" [(ngModel)]="article.content"></textarea>
+    <button mat-raised-button color="primary" (click)="createArticle()" style="width: 100px;">Créer</button>
+</div>

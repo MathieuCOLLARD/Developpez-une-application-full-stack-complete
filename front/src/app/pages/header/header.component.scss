@@ -14,13 +14,14 @@
     margin-right: 20px;
     margin-left: 20px;
     height: 40px;
+    cursor: pointer;
 }
 
 .header-logo {
     height: 75px;
 }
 
-.active-link {
+.purple-text {
     color:#6C5CCF;
 }
 
@@ -28,16 +29,7 @@
    display: none;
 }
 
-@media screen and (max-width: 768px) {
-    .back-button {
-        display: block;
-        left: 30px;
-        top: 30px;
-    }
-    .header-right {
-        display: none;
-    }
-}
+
 .sidenav-container {
     display: none;
   
@@ -65,4 +57,21 @@
        bottom: 20px;
     }
   }
-  
+  @media screen and (max-width: 768px) {
+    .back-button {
+        display: block;
+        cursor: pointer;
+        left: 30px;
+        top: 30px;
+    }
+    .header-right {
+        display: none;
+    }
+    
+    .closed {
+        position: absolute;
+        width: 80px;
+        height: 80px;
+        background: none;
+    }
+}

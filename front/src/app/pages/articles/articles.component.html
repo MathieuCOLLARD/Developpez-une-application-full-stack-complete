@@ -8,7 +8,7 @@
 </div>
 <div class="article-cards">
   <div *ngFor="let article of articles">
-    <mat-card (click)="viewArticle(article.id)" class="article-card">
+    <mat-card (click)="viewArticle(article)" class="article-card">
       <mat-card-header>
         <mat-card-title>{{ article.title }}</mat-card-title>
       </mat-card-header>

@@ -1,17 +1,21 @@
 import { User } from 'src/app/interfaces/user.interface';
 import { UserService } from '../../services/user.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { RootTopic, Topic } from 'src/app/interfaces/topic.interface';
 import { TopicsService } from 'src/app/services/topics.service';
-import { map, mergeMap, switchMap } from 'rxjs/operators';
+import { map, mergeMap } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 @Component({
-    selector: 'app-profile',
-    templateUrl: './profile.component.html',
-    styleUrls: ['./profile.component.scss']
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit {
+/**
+ * Represents the profile component.
+ */
+export class ProfileComponent implements OnInit, OnDestroy {
     public hide = true;
     public topics: Topic[] = [];
     public user: User = {
@@ -19,36 +23,48 @@ export class ProfileComponent implements OnInit {
         email: '',
         username: '',
         topics: []
-    }
+    };
 
     public form = this.fb.group({
         email: [
-          '',
-          [
-            Validators.required,
-            Validators.email
-          ]
+            '',
+            [
+                Validators.required,
+                Validators.email
+            ]
         ],
         username: [
-          '',
-          [
-            Validators.required,
-            Validators.min(3),
-            Validators.max(20)
-          ]
+            '',
+            [
+                Validators.required,
+                Validators.minLength(3),
+                Validators.maxLength(20)
+            ]
         ]
-      });
+    });
 
-    constructor(private userService: UserService,
+    // Subscriptions
+    private userSubscription: Subscription | undefined;
+    private topicSubscription: Subscription | undefined;
+    private updateSubscription: Subscription | undefined;
+    private unsubscribeSubscription: Subscription | undefined;
+
+    constructor(
+        private userService: UserService,
         private fb: FormBuilder,
-        private topicService: TopicsService) { }
+        private topicService: TopicsService
+    ) {}
 
     ngOnInit(): void {
         this.getUserInformationsAndTopics();
     }
 
+    /**
+     * Get user informations and topics.
+     * @returns void
+     */
     private getUserInformationsAndTopics(): void {
-        this.userService.me().pipe(
+        this.userSubscription = this.userService.me().pipe(
             mergeMap((user: User) => {
                 this.user = user;
                 return this.topicService.getAll().pipe(
@@ -64,20 +80,33 @@ export class ProfileComponent implements OnInit {
         });
     }
 
-    public disconnect(): void {    
+    /**
+     * Disconnect the user.
+     * @returns void
+     */
+    public disconnect(): void {
         localStorage.removeItem('token');
         window.location.reload();
     }
 
+    /**
+     * Update the user.
+     * @returns void
+     */
     public updateUser(): void {
-        this.userService.updateMe(this.user).subscribe({
+        this.updateSubscription = this.userService.updateMe(this.user).subscribe({
             next: () => this.getUserInformationsAndTopics(),
             error: error => console.error(error)
         });
     }
 
-    public unsubscribeTopic(topicID: number) {
-        this.topicService.unsubscribe(topicID).subscribe({
+    /**
+     * Unsubscribe from a topic.
+     * @param topicID - The ID of the topic to unsubscribe from.
+     * @returns void
+     */
+    public unsubscribeTopic(topicID: number): void {
+        this.unsubscribeSubscription = this.topicService.unsubscribe(topicID).subscribe({
             next: () => {
                 console.log('Unsubscribed from topic');
                 this.getUserInformationsAndTopics();
@@ -87,8 +116,20 @@ export class ProfileComponent implements OnInit {
         });
     }
 
+    /**
+     * Update the filtered topics based on the user's subscribed topics.
+     * @returns void
+     */
     private updateFilteredTopics(): void {
         const filteredTopics = this.topics.filter(topic => this.user.topics.some(userTopic => userTopic.id === topic.id));
         this.topics = filteredTopics;
+    }
+
+    ngOnDestroy(): void {
+        // Unsubscribe to avoid memory leaks
+        this.userSubscription?.unsubscribe();
+        this.topicSubscription?.unsubscribe();
+        this.updateSubscription?.unsubscribe();
+        this.unsubscribeSubscription?.unsubscribe();
     }
 }

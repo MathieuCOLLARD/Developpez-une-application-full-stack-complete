@@ -57,4 +57,8 @@
     .article-cards {
         grid-template-columns: repeat(1, 1fr);
     }
+    .articles-header {
+        margin-right: 0px;
+        flex-direction: column;
+    }
 }

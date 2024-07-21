@@ -1,26 +1,33 @@
 <app-header></app-header>
-<mat-card>
-    <mat-card-header>
-        <mat-card-title>{{ article.title }}</mat-card-title>
-        <mat-card-subtitle>{{ article.author }}</mat-card-subtitle>
-        <mat-card-subtitle>{{ article.topicTitle }}</mat-card-subtitle>
-        <mat-card-subtitle>{{ article.createdAt | date: 'dd/MM/yyyy' }}</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-        <p>{{ article.content }}</p>
-        <mat-divider></mat-divider>
-        <h3>Commentaires</h3>
-        <div *ngFor="let comment of article.comments">
-            <p>{{ comment.author }}</p>
+<div class="article-header">
+    <div class="article-title">
+        <button mat-icon-button class="back-button" (click)="goBack()">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+    </div>
+    
+    <mat-card-title style="padding-left: 60px; padding-bottom: 20px;">{{ article.title }}</mat-card-title>
+    <div class="article-infos">
+        <span>{{ article.author }}</span>
+        <span>{{ article.topicTitle }}</span>
+        <span>{{ article.createdAt | date: 'dd/MM/yyyy' }}</span>
+    </div>
+</div>
 
-            <p>{{ comment.content }}</p>
+<div class="article-content">
+    <p>{{ article.content }}</p>
+    <mat-divider style="margin-top: 20px;margin-bottom: 20px;"></mat-divider>
+    <h2>Commentaires</h2>
+    <div *ngFor="let comment of comments">
+        <div class="comment-details">
+            <span>{{ comment.author }}</span>
+            <span class="comment-content">{{ comment.content }}</span>
         </div>
-        <form [formGroup]="commentForm" (ngSubmit)="addComment()">
-            <mat-form-field appearance="fill">
-                <mat-label>Add a comment</mat-label>
-                <textarea matInput formControlName="comment"></textarea>
-            </mat-form-field>
-            <button mat-raised-button color="primary" type="submit">Submit</button>
-        </form>
-    </mat-card-content>
-</mat-card>
+    </div>
+    <form class="add-comment" [formGroup]="commentForm" (ngSubmit)="addComment()">
+        <textarea class="textarea-comment" placeholder="Écrivez ici votre commentaire" formControlName="comment"></textarea>
+        <button mat-icon-button type="submit">
+            <img style="height: 25px;" src="/assets/send.png" alt="send" />
+        </button>
+    </form>
+</div>

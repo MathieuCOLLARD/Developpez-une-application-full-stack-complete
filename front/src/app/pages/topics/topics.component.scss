@@ -20,3 +20,14 @@
     display: flex;
     flex-direction: column;
 }
+
+.no-topic {
+    display: flex;
+    justify-content: center;
+}
+
+@media (max-width: 768px) {
+    .topic-cards {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}

@@ -12,10 +12,19 @@ export class SessionService {
 
   private isLoggedSubject = new BehaviorSubject<boolean>(this.isLogged);
 
+  /**
+   * Returns an observable that emits the login status of the user.
+   * @returns {Observable<boolean>} An observable emitting the user's login status.
+   */
   public $isLogged(): Observable<boolean> {
     return this.isLoggedSubject.asObservable();
   }
 
+  /**
+   * Logs in the user and sets the session information.
+   * @param user - The session information of the user.
+   * @returns void
+   */
   public logIn(user: SessionInformation): void {
     this.sessionInformation = user;
     this.isLogged = true;
@@ -25,10 +34,18 @@ export class SessionService {
     }
   }
 
+  /**
+   * Removes session data from local storage.
+   * @returns void
+   */
   public removeDataFromLocalStorage(): void {
     localStorage.removeItem('token');
   }
 
+  /**
+   * Logs out the user, clears the session information, and updates the login status.
+   * @returns void
+   */
   public logOut(): void {
     this.sessionInformation = undefined;
     this.isLogged = false;

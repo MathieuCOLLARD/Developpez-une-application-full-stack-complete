@@ -18,7 +18,17 @@
         </div>
         <div>
             <p class="subtitle">Mot de passe</p>
-            <input class="form-input" formControlName="password" type="password">
+            <input class="form-input" formControlName="password" type="password" (focus)="showPasswordRequirements()" (blur)="hidePasswordRequirements()">
+            <div *ngIf="showRequirements" class="password-requirements">
+                <p>Le mot de passe doit contenir :</p>
+                <ul>
+                    <li>8 caractères minimum</li>
+                    <li>Au moins un chiffre</li>
+                    <li>Au moins une lettre minuscule</li>
+                    <li>Au moins une lettre majuscule</li>
+                    <li>Au moins un caractère spécial</li>
+                </ul>
+            </div>
         </div>
         <button mat-raised-button class="validate-button" color="primary" type="submit" [disabled]="form.invalid">S'inscrire</button>
         <span *ngIf="onError" class="error ml2">An error occurred</span>

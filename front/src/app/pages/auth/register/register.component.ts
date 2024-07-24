@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { RegisterRequest } from '../../../interfaces/registerRequest.interface';
@@ -13,6 +13,7 @@ import { Subscription } from 'rxjs';
 export class RegisterComponent implements OnDestroy {
 
   public onError = false;
+  public showRequirements = false;
 
   public form = this.fb.group({
     email: [
@@ -34,8 +35,9 @@ export class RegisterComponent implements OnDestroy {
       '',
       [
         Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(40)
+        Validators.minLength(8),
+        Validators.maxLength(40),
+        this.passwordValidator()
       ]
     ]
   });
@@ -67,6 +69,41 @@ export class RegisterComponent implements OnDestroy {
    */
   public goBack(): void {
     this.router.navigate(['/']);
+  }
+
+  /**
+   * Show password requirements
+   * @returns void
+   */
+  public showPasswordRequirements(): void {
+    this.showRequirements = true;
+  }
+
+  /**
+   * Hide password requirements
+   * @returns void
+   */
+  public hidePasswordRequirements(): void {
+    this.showRequirements = false;
+  }
+
+  public passwordValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value;
+  
+      if (!value) {
+        return null;
+      }
+  
+      const hasUpperCase = /[A-Z]+/.test(value);
+      const hasLowerCase = /[a-z]+/.test(value);
+      const hasNumeric = /[0-9]+/.test(value);
+      const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]+/.test(value);
+  
+      const passwordValid = hasUpperCase && hasLowerCase && hasNumeric && hasSpecialChar;
+  
+      return !passwordValid ? { passwordStrength: true } : null;
+    };
   }
 
   ngOnDestroy(): void {

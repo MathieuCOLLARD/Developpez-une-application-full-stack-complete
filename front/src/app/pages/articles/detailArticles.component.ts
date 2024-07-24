@@ -13,16 +13,13 @@ import { Subscription } from 'rxjs';
 })
 export class DetailArticlesComponent implements OnInit, OnDestroy {
   public article: Article = {
-    id: 0,
     title: '',
-    content: '',
-    author: '',
-    createdAt: '',
-    topicTitle: 0
+    content: ''
   };
 
   public comments: Comment[] = [];
   commentForm: FormGroup;
+  loading: boolean = true;
 
   // Subscriptions
   private articleSubscription: Subscription | undefined;
@@ -40,8 +37,32 @@ export class DetailArticlesComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.getArticle();
-    this.getComments();
+    this.loadData();
+  }
+
+  /**
+   * Load article and comments data
+   * @returns void
+   */
+  private loadData(): void {
+    const id = this.getArticleIdFromUrl();
+    if (id !== null) {
+      this.getArticle(id);
+      this.getComments(id);
+    } else {
+      this.loading = false;
+      console.error('Invalid article ID');
+    }
+  }
+
+  /**
+   * Extract article ID from the URL
+   * @returns number | null
+   */
+  private getArticleIdFromUrl(): number | null {
+    const url = window.location.href;
+    const id = url.substring(url.lastIndexOf('/') + 1);
+    return isNaN(Number(id)) ? null : parseInt(id, 10);
   }
 
   /**
@@ -49,13 +70,12 @@ export class DetailArticlesComponent implements OnInit, OnDestroy {
    * @returns void
    */
   addComment(): void {
-    const url = window.location.href;
-    const id = url.substring(url.lastIndexOf('/') + 1);
-    if (this.commentForm.valid) {
+    const id = this.getArticleIdFromUrl();
+    if (id !== null && this.commentForm.valid) {
       const comment = this.commentForm.get('comment')?.value;
-      this.addCommentSubscription = this.articleService.addComment(parseInt(id), comment).subscribe({
+      this.addCommentSubscription = this.articleService.addComment(id, comment).subscribe({
         next: () => {
-          this.getComments();
+          this.getComments(id);
           this.commentForm.reset();
         },
         error: error => console.error('Error adding comment', error)
@@ -75,12 +95,20 @@ export class DetailArticlesComponent implements OnInit, OnDestroy {
    * Get the article by its ID
    * @returns void
    */
-  public getArticle(): void {
-    const url = window.location.href;
-    const id = url.substring(url.lastIndexOf('/') + 1);
-    this.articleSubscription = this.articleService.getArticleByID(parseInt(id)).subscribe({
-      next: (article: Article) => this.article = article,
-      error: error => console.error(error)
+  public getArticle(id: number): void {
+    this.articleSubscription = this.articleService.getArticleByID(id).subscribe({
+      next: (article: Article) => {
+        this.article = article;
+        this.loading = false;
+      },
+      error: (error) => {
+        if (error.status === 404) {
+          console.error('Article not found');
+        } else {
+          console.error(error);
+        }
+        this.loading = false;
+      }
     });
   }
 
@@ -88,10 +116,8 @@ export class DetailArticlesComponent implements OnInit, OnDestroy {
    * Get the comments of the article
    * @returns void
    */
-  public getComments(): void {
-    const url = window.location.href;
-    const id = url.substring(url.lastIndexOf('/') + 1);
-    this.commentsSubscription = this.articleService.getComments(parseInt(id)).subscribe({
+  public getComments(id: number): void {
+    this.commentsSubscription = this.articleService.getComments(id).subscribe({
       next: (comments: Comment[]) => this.comments = comments,
       error: error => console.error(error)
     });

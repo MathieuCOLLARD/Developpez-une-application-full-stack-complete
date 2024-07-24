@@ -7,6 +7,7 @@ import { TopicsComponent } from './pages/topics/topics.component';
 import { DetailArticlesComponent } from './pages/articles/detailArticles.component';
 import { NewArticleComponent } from './pages/articles/newArticle.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 const routes: Routes = [
   { 
@@ -41,7 +42,15 @@ const routes: Routes = [
     path: 'profile',
     canActivate: [AuthGuard],
     component: ProfileComponent
-  }
+  },
+  {
+    path: 'notFound', // wildcard
+    component: NotFoundComponent,
+  },
+  {
+    path: '**', // wildcard
+    component: NotFoundComponent,
+  },
 ];
 
 @NgModule({

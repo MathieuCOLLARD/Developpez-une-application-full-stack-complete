@@ -20,6 +20,7 @@ import { DetailArticlesComponent } from './pages/articles/detailArticles.compone
 import { NewArticleComponent } from './pages/articles/newArticle.component';
 import { SharedModule } from './shared/shared.module';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 const materialModules = [
   MatButtonModule,
@@ -38,7 +39,8 @@ const materialModules = [
     DetailArticlesComponent,
     NewArticleComponent,
     TopicsComponent,
-    ProfileComponent
+    ProfileComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,

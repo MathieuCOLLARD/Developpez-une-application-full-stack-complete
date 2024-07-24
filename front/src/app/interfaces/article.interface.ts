@@ -11,6 +11,6 @@ export interface RootArticle {
     content: string
     comments?: Comment[]
     createdAt?: string
-    topicTitle: number
+    topicTitle?: number
   }
   

@@ -60,20 +60,24 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
 ## Launch Back
+If u have Intellij IDE, you can follow the steps bellow.
 
-> To start the back-end, you need a configuration. First, click on Edit Configurations :
+If u want to download it, click on the link :
+> https://www.jetbrains.com/fr-fr/idea/download/?section=windows
+
+To start the back-end with Intellij, you need a configuration. First, click on Edit Configurations :
 
 ![image](https://github.com/user-attachments/assets/1d8c99a4-5ee5-4ad0-b58d-275de96cca76)
 
-> Add a new configuration :
+Add a new configuration :
 
 ![image](https://github.com/user-attachments/assets/73ef6f55-8b5b-4b97-98bb-5f2672a6d765)
 
-> Add 'spring-boot:run' in Run field :
+Add 'spring-boot:run' in Run field :
 
 ![image](https://github.com/user-attachments/assets/fb9fc3da-43d0-48fa-85ff-482ed1c144b9)
 
-> Then in Java Options, click on 'Modify' and on 'Environment Varibles'. Add this line in the 'Environment Varibles' field for the database configuration:
+Then in Java Options, click on 'Modify' and on 'Environment Varibles'. Add this line in the 'Environment Varibles' field for the database configuration:
 > 'database.password=Openclassrooms05;database.url=jdbc:mysql://localhost:3306/mddapi;database.secret=openclassrooms'
 
 ![image](https://github.com/user-attachments/assets/8f13a7fd-29f1-46b6-964b-88fc1c118d8d)
